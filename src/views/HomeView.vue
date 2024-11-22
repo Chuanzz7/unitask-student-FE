@@ -1,14 +1,9 @@
 <script setup>
-import SideNavBar from "@/components/layout/SideNavBar.vue";
-import TopNavBar from "@/components/layout/TopNavBar.vue";
+import TopNavBar from "@/components/layout/TopNavBar";
+import SideNavBar from "@/components/layout/SideNavBar";
 </script>
 
 <template>
-   <SideNavBar></SideNavBar>
-  <TopNavBar></TopNavBar>
-  </body>
+	<SideNavBar></SideNavBar>
+	<TopNavBar></TopNavBar>
 </template>
-
-<style scoped>
-
-</style>

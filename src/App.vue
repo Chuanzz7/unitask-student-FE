@@ -1,36 +1,33 @@
 <script setup>
-import {RouterView} from "vue-router";
-import {onMounted} from "vue";
-import {useAuthStore} from "@/stores/auth.js";
+import { onMounted } from "vue";
 import axios from "axios";
-import router from "@/router/index.js";
+import { RouterView, useRouter } from "vue-router";
 
+import { useAuthStore } from "@/stores/AuthStore";
+
+const router = useRouter();
 const authStore = useAuthStore();
 
 onMounted(() => {
-// Set the Authorization header if the token exists
-  if (authStore.token) {
-    axios.defaults.headers.common['Authorization'] = authStore.token;
-  }
+	// Set the Authorization header if the token exists
+	if (authStore.token) {
+		axios.defaults.headers.common["Authorization"] = authStore.token;
+	}
 
-// Axios response interceptor to handle 401 errors
-  axios.interceptors.response.use(
-      (response) => response,
-      (error) => {
-        if (error.response.status === 401) {
-          authStore.logout();
-          router.push({ name: 'Login' });
-        }
-        return Promise.reject(error);
-      }
-  );
-})
-
+	// Axios response interceptor to handle 401 errors
+	axios.interceptors.response.use(
+		(response) => response,
+		(error) => {
+			if (error.response.status === 401) {
+				authStore.logout();
+				router.push({ name: "login" });
+			}
+			return Promise.reject(error);
+		}
+	);
+});
 </script>
 
 <template>
-  <RouterView/>
+	<RouterView />
 </template>
-
-<style>
-</style>

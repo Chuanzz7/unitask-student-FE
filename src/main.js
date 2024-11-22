@@ -1,16 +1,19 @@
-import './assets/main.css'
-import 'primeicons/primeicons.css';
-import router from './router';
-import {createApp} from 'vue'
-import { createPinia } from 'pinia'
+import "./assets/main.css";
+import "primeicons/primeicons.css";
+import "vue-toastification/dist/index.css";
+import { createApp } from "vue";
+import { createPinia } from "pinia";
 import Toast from "vue-toastification";
-import 'vue-toastification/dist/index.css'
-import App from './App.vue'
 
-const app = createApp(App)
-const pinia = createPinia()
+import router from "./router";
+
+import App from "./App.vue";
+
+const app = createApp(App);
+const pinia = createPinia();
 
 app.use(router);
-app.use(Toast)
-app.use(pinia)
-app.mount('#app');
+app.use(Toast);
+app.use(pinia);
+
+app.mount("#app");
