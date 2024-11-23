@@ -3,7 +3,7 @@
 </script>
 
 <template>
-HELLO
+Dashboard
 </template>
 
 <style scoped>
