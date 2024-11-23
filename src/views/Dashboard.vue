@@ -1,11 +1,5 @@
-<script setup>
+<script setup></script>
 
-</script>
+<template><div class="h-30 w-30 border-2 border-solid border-blue-100"></div></template>
 
-<template>
-Dashboard
-</template>
-
-<style scoped>
-
-</style>
+<style scoped></style>
