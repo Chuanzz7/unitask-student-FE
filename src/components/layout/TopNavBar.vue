@@ -14,6 +14,38 @@ const state = reactive({
 const signOut = () => {
 	auth.logout();
 };
+
+const onHandleSideBar = () => {
+	const sidenav = document.querySelector("aside");
+	const sidenav_trigger = document.querySelector("[sidenav-trigger]");
+	const burger = sidenav_trigger.firstElementChild;
+	const top_bread = burger.firstElementChild;
+	const bottom_bread = burger.lastElementChild;
+
+	if (sidenav.getAttribute("aria-expanded") == "false") {
+		sidenav.setAttribute("aria-expanded", "true");
+	} else {
+		sidenav.setAttribute("aria-expanded", "false");
+	}
+
+	sidenav.classList.toggle("translate-x-0");
+	sidenav.classList.toggle("ml-6");
+	sidenav.classList.toggle("shadow-xl");
+
+	top_bread.classList.toggle("translate-x-[5px]");
+	bottom_bread.classList.toggle("translate-x-[5px]");
+};
+
+window.addEventListener("click", (e) => {
+	const sidenav = document.querySelector("aside");
+	const sidenav_trigger = document.querySelector("[sidenav-trigger]");
+
+	if (!sidenav.contains(e.target) && !sidenav_trigger.contains(e.target)) {
+		if (sidenav.getAttribute("aria-expanded") == "true") {
+			sidenav_trigger.click();
+		}
+	}
+});
 </script>
 
 <template>
@@ -30,6 +62,16 @@ const signOut = () => {
 								<i class="fa fa-user sm:mr-1"></i>
 								<span class="hidden sm:inline">Sign Out</span>
 							</button>
+						</li>
+
+						<li class="flex items-center pl-4 xl:hidden">
+							<a href="javascript:;" class="block p-0 text-sm text-white transition-all ease-nav-brand" @click="onHandleSideBar" sidenav-trigger>
+								<div class="w-4.5 overflow-hidden">
+									<i class="ease mb-0.75 relative block h-0.5 rounded-sm bg-white transition-all"></i>
+									<i class="ease mb-0.75 relative block h-0.5 rounded-sm bg-white transition-all"></i>
+									<i class="ease relative block h-0.5 rounded-sm bg-white transition-all"></i>
+								</div>
+							</a>
 						</li>
 					</ul>
 				</div>
