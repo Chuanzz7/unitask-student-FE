@@ -13,6 +13,10 @@ const breadcrumbsItem = {
 		{ label: "Page", to: "/" },
 		{ label: "Subject", to: pathnames.SubjectView },
 	],
+	subjectDetails: [
+		{ label: "Page", to: "/" },
+		{ label: "Subject", to: pathnames.SubjectView },
+	],
 	assignment: [
 		{ label: "Page", to: "/" },
 		{ label: "Assignment", to: pathnames.Assignment },
