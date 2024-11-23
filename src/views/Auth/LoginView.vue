@@ -8,6 +8,10 @@ import pathnames from "@/router/pathnames";
 
 import { useAuthStore } from "@/stores/AuthStore";
 
+import buttonEnums from "@/enums/buttonEnums";
+
+import AppButton from "@/components/AppButton.vue";
+
 const form = reactive({
 	isLoading: false,
 	email: "",
@@ -88,12 +92,7 @@ const submitLogin = async () => {
 												<PulseLoader color="#825ee4"></PulseLoader>
 											</div>
 											<div class="text-center">
-												<button
-													type="submit"
-													class="inline-block w-full px-16 py-3.5 mt-6 mb-0 font-bold leading-normal text-center text-white align-middle transition-all bg-blue-500 border-0 rounded-lg cursor-pointer hover:-translate-y-px active:opacity-85 hover:shadow-xs text-sm ease-in tracking-tight-rem shadow-md bg-150 bg-x-25"
-												>
-													Sign in
-												</button>
+												<AppButton :type="buttonEnums.SUBMIT" :loading="form.isLoading">Sign in</AppButton>
 											</div>
 										</form>
 									</div>
