@@ -1,11 +1,20 @@
 <script setup>
 
-import SmallLists from "@/components/small-list/small-lists.vue";
+import SmallLists from "@/components/small-list/Small-lists.vue";
+import SmallForm from "@/components/form/SmallForm.vue";
 </script>
 
 <template>
-  <SmallLists title="Subjects"></SmallLists>
+  <div class="h-full flex flex-wrap flex-row max-w-full">
+    <div class="min-w-1/4 mx-3 flex-grow mb-4">
+      <SmallLists title="Subjects"></SmallLists>
+    </div>
+    <div class="min-w-3/4 mx-3 flex-grow mb-4">
+      <SmallForm></SmallForm>
+    </div>
+  </div>
 </template>
+
 
 <style scoped>
 
