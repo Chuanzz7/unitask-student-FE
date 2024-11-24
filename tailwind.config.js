@@ -871,6 +871,7 @@ export default {
             "4/6": "66.666667%",
             "5/6": "83.333333%",
             full: "100%",
+            screen_content:"calc(100vh - 86px)",
             // sidenav: "calc(100vh - 310px)",
             sidenav: "calc(100vh - 360px)", // for pro btn
             screen: "100vh",
@@ -961,7 +962,6 @@ export default {
         maxHeight: ({theme}) => ({
             ...theme("spacing"),
             full: "100%",
-            screen_89: "89.5vh",
             screen: "100vh",
             min: "min-content",
             max: "max-content",
