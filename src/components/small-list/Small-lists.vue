@@ -23,7 +23,47 @@ const state = reactive({
     subjectName: "Test2",
     lecturerName: "Name2",
     subjectCode: "456",
-  }]
+  }, {
+    id: 1,
+    subjectName: "Software Testing",
+    lecturerName: "Dr Lee Yun Li",
+    subjectCode: "SWE3033",
+  }, {
+    id: 1,
+    subjectName: "Software Testing",
+    lecturerName: "Dr Lee Yun Li",
+    subjectCode: "SWE3033",
+  }, {
+    id: 1,
+    subjectName: "Software Testing",
+    lecturerName: "Dr Lee Yun Li",
+    subjectCode: "SWE3033",
+  }, {
+    id: 1,
+    subjectName: "Software Testing",
+    lecturerName: "Dr Lee Yun Li",
+    subjectCode: "SWE3033",
+  }, {
+    id: 1,
+    subjectName: "Software Testing",
+    lecturerName: "Dr Lee Yun Li",
+    subjectCode: "SWE3033",
+  }, {
+    id: 1,
+    subjectName: "Software Testing",
+    lecturerName: "Dr Lee Yun Li",
+    subjectCode: "SWE3033",
+  }, {
+    id: 1,
+    subjectName: "Software Testing",
+    lecturerName: "Dr Lee Yun Li",
+    subjectCode: "SWE3033",
+  }, {
+    id: 1,
+    subjectName: "Software Testing",
+    lecturerName: "Dr Lee Yun Li",
+    subjectCode: "SWE3033",
+  },]
 })
 
 const route = useRoute()
@@ -46,20 +86,23 @@ const filter = (value) => {
 </script>
 
 <template>
-  <div class="h-full overflow-y-auto break-words bg-white border-0 border-transparent border-solid shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
-  <div class="p-4 pb-0 mb-0 border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
-        <div class="flex flex-wrap -mx-3">
-          <div class="flex items-center flex-none w-1/2 max-w-full px-3">
-            <h6 class="mb-0 dark:text-white">{{ title }}</h6>
-          </div>
-          <div class="flex-none w-1/2 max-w-full px-3 text-right">
-            <SearchBar @search-input="filter"></SearchBar>
-          </div>
+  <div
+      class="h-full overflow-y-hidden pb-15/100  bg-white border-0 border-transparent border-solid shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl ">
+    <div class="p-4 pb-0 mb-0 border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
+      <div class="flex flex-wrap -mx-3">
+        <div class="flex items-center flex-none w-1/2 max-w-full px-3">
+          <h6 class="mb-0 dark:text-white">{{ title }}</h6>
+        </div>
+        <div class="flex-none w-1/2 max-w-full px-3 text-right">
+          <SearchBar @search-input="filter"></SearchBar>
         </div>
       </div>
-      <SmallList v-if="state.isLoaded" v-for="content in state.contents" @click="getId(content.id)" :data="content"
-                 :isActive="content.id === state.isActiveId"></SmallList>
     </div>
+    <div class="max-h-full overflow-y-auto break-words bg-clip-border" >
+    <SmallList v-if="state.isLoaded" v-for="content in state.contents" @click="getId(content.id)" :data="content"
+               :isActive="content.id === state.isActiveId"></SmallList>
+    </div>
+  </div>
 </template>
 
 <style scoped>

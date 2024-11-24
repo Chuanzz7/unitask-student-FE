@@ -961,6 +961,7 @@ export default {
         maxHeight: ({theme}) => ({
             ...theme("spacing"),
             full: "100%",
+            screen_89: "89.5vh",
             screen: "100vh",
             min: "min-content",
             max: "max-content",
