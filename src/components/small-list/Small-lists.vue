@@ -86,8 +86,7 @@ const filter = (value) => {
 </script>
 
 <template>
-  <div
-      class="h-full overflow-y-hidden pb-15/100  bg-white border-0 border-transparent border-solid shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl ">
+  <div class="h-full overflow-y-hidden pb-14 px-1 bg-white border-0 border-transparent border-solid shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl ">
     <div class="p-4 pb-0 mb-0 border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
       <div class="flex flex-wrap -mx-3">
         <div class="flex items-center flex-none w-1/2 max-w-full px-3">
