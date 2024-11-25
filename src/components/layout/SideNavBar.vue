@@ -4,7 +4,7 @@ import pathnames from "@/router/pathnames.js";
 
 const isActiveLink = (routePath) => {
   const route = useRoute();
-  return route.path === routePath;
+  return !(route.path.indexOf(routePath)===-1);
 }
 
 </script>
