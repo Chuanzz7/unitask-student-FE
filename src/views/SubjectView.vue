@@ -84,9 +84,9 @@ onMounted(() => {
 
 <template>
   <div class="h-full flex flex-wrap max-w-full pb-4 transition-flex">
-    <SmallLists class="h-full flex-grow mx-3 mb-3 animate- " title="Subjects" module="subjectDetails"
+    <SmallLists class="h-full flex-grow mx-3 mb-3 min-w-[40%] basis-[30%]" title="Subjects" module="subjectDetails"
                 :content="state.listData"></SmallLists>
-    <SubjectForm class="h-full w-[65%] flex-grow mx-3 mb-3" v-if="currentValue != null" v-model="currentValue"
+    <SubjectForm class="h-full flex-grow mx-3 mb-3 basis-[50%]" v-if="currentValue != null" v-model="currentValue"
                  :content="state.formData"></SubjectForm>
   </div>
 </template>
