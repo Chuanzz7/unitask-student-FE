@@ -4,8 +4,7 @@ import SmallLists from "@/components/small-list/Small-lists.vue";
 import {computed, onMounted, reactive, ref, watch} from "vue";
 import SubjectForm from "@/components/subject/SubjectForm.vue";
 import {useAuthStore} from "@/stores/AuthStore.js";
-import {GET_SUBJECT, LIST_SUBJECT} from "@/api/index.js";
-import axios from "axios";
+import {apiClient, GET_SUBJECT, LIST_SUBJECT} from "@/api/index.js";
 import {useRoute} from "vue-router";
 import {useToast} from "vue-toastification";
 
@@ -25,7 +24,7 @@ const state = reactive({
 
 const listingApi = async () => {
   try {
-    const response = await axios.get(LIST_SUBJECT);
+    const response = await apiClient.get(LIST_SUBJECT);
     state.listData.isLoading = false;
     state.listData.content = [];
     response.data.map((x) => {
@@ -39,7 +38,7 @@ const listingApi = async () => {
 const subjectApi = async (id) => {
   if (id != null) {
     try {
-      const response = await axios.get(`${GET_SUBJECT}${id}`);
+      const response = await apiClient.get(`${GET_SUBJECT}${id}`);
       state.formData.isLoading = false;
       let x = response.data;
       state.formData.content.subjectName = x.subjectName;

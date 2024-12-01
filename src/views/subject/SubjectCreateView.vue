@@ -3,8 +3,7 @@
 import SubjectForm from "@/components/subject/SubjectForm.vue";
 import AppButton from "@/components/AppButton.vue";
 import {reactive} from "vue";
-import axios from "axios";
-import {POST_SUBJECT} from "@/api/index.js";
+import {apiClient, POST_SUBJECT} from "@/api/index.js";
 import {POSITION, useToast} from "vue-toastification";
 import {useRouter} from "vue-router";
 import pathnames from "@/router/pathnames.js";
@@ -50,7 +49,7 @@ const create = async () => {
       payload.assessment.push({assessmentName: x.name, assessmentWeightage: x.weightage});
     })
 
-    const response = await axios.post(POST_SUBJECT, payload);
+    const response = await apiClient.post(POST_SUBJECT, payload);
     if (response.status === 200) {
       toast.success("Successfully created!", {position: POSITION.TOP_CENTER});
     }

@@ -1,11 +1,10 @@
 import {computed, ref} from "vue";
-import axios from "axios";
 import {defineStore} from "pinia";
 import {useRouter} from "vue-router";
 
 import pathnames from "@/router/pathnames";
 
-import {LOGIN, SIGNUP} from "@/api";
+import {apiClient, LOGIN, SIGNUP} from "@/api";
 
 export const useAuthStore = defineStore("authStore", () => {
     const router = useRouter();
@@ -18,14 +17,14 @@ export const useAuthStore = defineStore("authStore", () => {
 
     const login = async (credentials) => {
         try {
-            const response = await axios.post(LOGIN, credentials);
+            const response = await apiClient.post(LOGIN, credentials);
             token.value = response.data.jwt;
             role.value = response.data.userRole;
             // Optionally, save the token to localStorage or cookies
             localStorage.setItem("token", token.value);
 
             // Set the default Authorization header for future requests
-            axios.defaults.headers.common["Authorization"] = `Bearer ${token.value}`;
+            apiClient.defaults.headers.common["Authorization"] = `Bearer ${token.value}`;
         } catch (error) {
             console.error("Login failed:", error);
             throw error;
@@ -34,7 +33,7 @@ export const useAuthStore = defineStore("authStore", () => {
 
     const signUp = async (credentials) => {
         try {
-            await axios.post(SIGNUP, credentials);
+            await apiClient.post(SIGNUP, credentials);
 
             router.push(pathnames.LoginView);
         } catch (error) {
@@ -49,7 +48,7 @@ export const useAuthStore = defineStore("authStore", () => {
 
         localStorage.removeItem("token");
 
-        delete axios.defaults.headers.common["Authorization"];
+        delete apiClient.defaults.headers.common["Authorization"];
 
         router.push(pathnames.LoginView);
     };
