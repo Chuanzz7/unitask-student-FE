@@ -10,12 +10,13 @@ import NotFoundView from "@/views/NotFoundView.vue";
 
 import Dashboard from "@/views/Dashboard.vue";
 import DefaultLayout from "@/components/layout/DefaultLayout.vue";
-import SubjectView from "@/views/SubjectView.vue";
+import SubjectView from "@/views/subject/SubjectView.vue";
 import AnnouncementView from "@/views/AnnouncementView.vue";
 import AssignmentView from "@/views/AssignmentView.vue";
 import GroupView from "@/views/GroupView.vue";
 import TaskView from "@/views/TaskView.vue";
 import DocumentView from "@/views/DocumentView.vue";
+import SubjectCreateView from "@/views/subject/SubjectCreateView.vue";
 
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
@@ -70,6 +71,11 @@ const router = createRouter({
 					path: pathnames.SubjectView + "/:id",
 					name: "subjectDetails",
 					component: SubjectView,
+				},
+				{
+					path: pathnames.SubjectView + "/new",
+					name: "subjectCreate",
+					component: SubjectCreateView,
 				},
 				{
 					path: pathnames.Assignment,

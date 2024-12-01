@@ -1,17 +1,20 @@
 <script setup>
 
 import SmallLists from "@/components/small-list/Small-lists.vue";
-import {computed, onMounted, reactive} from "vue";
+import {computed, onMounted, reactive, ref, watch} from "vue";
 import SubjectForm from "@/components/subject/SubjectForm.vue";
 import {useRoute} from "vue-router";
 
 const route = useRoute();
 const currentValue = computed(() => route.params.id);
+const id = ref(route.params.id);
 
 const state = reactive({
-  listData: [],
-  selectedValue: 0,
+  isLoading: true,
+  listData: {isLoading: true, content: []},
+  formData: {isLoading: true, content: { isDisabled:true}},
 })
+
 const listingApi = () => {
   // if (error.response.status === 401) {
   //   toast.error("Bad Credential", {position: "top-center"});
@@ -71,23 +74,49 @@ const listingApi = () => {
     subjectCode: "SWE3033",
   }]
 
+  state.listData.content = [];
   data.map((x) => {
-    state.listData.push({id: x.id, title: x.subjectCode, description: x.lecturerName, code: x.subjectCode})
+    state.listData.content.push({id: x.id, title: x.subjectCode, description: x.lecturerName, code: x.subjectCode})
   });
+}
+
+const subjectApi = async (id) => {
+  //call api
+
+  state.formData.formLoading = false;
+  state.formData.content.isDisabled = true
+  state.formData.content.id = id;
+  state.formData.content.course = "Test";
+  state.formData.content.subjectName = "Code Camp";
+  state.formData.content.assessment = [{name: "Mid term", weightage: "50%"}]
 }
 
 onMounted(() => {
   listingApi()
+  subjectApi(id.value);
 })
+
+watch(
+    () => route.params.id,
+    (newId) => {
+      id.value = newId;
+      subjectApi(newId); // Fetch data when the ID changes
+    },
+    {immediate: true} // Trigger on initial mount
+);
 
 </script>
 
 <template>
-  <div class="h-full flex flex-wrap max-w-full pb-4 transition-flex">
-    <SmallLists class="h-full flex-grow mx-3 mb-3 min-w-[40%] basis-[30%]" title="Subjects" module="subjectDetails"
-                :content="state.listData"></SmallLists>
-    <SubjectForm class="h-full flex-grow mx-3 mb-3 basis-[50%]" v-if="currentValue != null" v-model="currentValue"
-                 :content="state.formData"></SubjectForm>
+  <div class="h-full flex flex-wrap max-w-full pb-4 ">
+    <SmallLists class="h-full flex-row flex-grow mx-3 mb-3 min-w-[30%] basis-[30%]" title="Subjects"
+                details-page="subjectDetails"
+                new-page="subjectCreate"
+                :content="state.listData.content"></SmallLists>
+    <SubjectForm class="h-full flex-row flex-grow mx-3 mb-3 basis-[50%]"
+                 v-if="currentValue != null"
+                 v-model="state.formData.content"
+                 :loading="state.isLoading"></SubjectForm>
   </div>
 </template>
 

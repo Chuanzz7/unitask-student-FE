@@ -7,7 +7,8 @@ import router from "@/router/index.js";
 
 const props = defineProps({
   title: String,
-  module: String,
+  detailsPage: String,
+  newPage:String,
   content: [{
     id: Number,
     title: String,
@@ -30,8 +31,12 @@ onMounted(() => {
 })
 
 const getId = (id) => {
-  router.push({name: props.module, params: {id: id}})
+  router.push({name: props.detailsPage, params: {id: id}})
   state.isActiveId = id
+}
+
+const newId = () => {
+  router.push({name: props.newPage, params: {id: "new"}})
 }
 
 const filter = (value) => {
@@ -47,8 +52,12 @@ const filter = (value) => {
         <div class="flex items-center flex-none w-1/2 max-w-full px-3">
           <h5 class="mb-0 dark:text-white">{{ title }}</h5>
         </div>
-        <div class="flex-none w-1/2 max-w-full px-3 text-right">
+        <div class="flex w-1/2 max-w-full px-3 text-right">
           <SearchBar @search-input="filter"></SearchBar>
+          <button class="flex py-2 font-semibold text-blue-500 " @click="newId()">
+            <i class="text-lg pi pi-plus my-1 mr-1"></i>
+            <span >Add</span>
+          </button>
         </div>
       </div>
     </div>
