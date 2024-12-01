@@ -11,7 +11,7 @@ const props = defineProps({
   title: String,
   detailsPage: String,
   newPage: String,
-  loading:Boolean,
+  loading: Boolean,
   content: [{
     id: Number,
     title: String,
@@ -62,9 +62,10 @@ const filter = (value) => {
         </div>
       </div>
     </div>
-    <div class="max-h-full overflow-y-auto break-words bg-clip-border">
-      <PulseLoader class="flex justify-center items-center" v-if="props.loading" color="#825ee4"></PulseLoader>
-      <SmallList v-else v-for="content in props.content" @click="getId(content.id)" :data="content"
+    <PulseLoader class="h-full w-full flex justify-center items-center" v-if="props.loading"
+                 color="#825ee4"></PulseLoader>
+    <div v-else class="max-h-full overflow-y-auto break-words bg-clip-border">
+      <SmallList v-for="content in props.content" @click="getId(content.id)" :data="content"
                  :isActive="content.id === state.isActiveId"></SmallList>
     </div>
   </div>

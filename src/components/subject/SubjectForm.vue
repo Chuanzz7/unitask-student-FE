@@ -29,7 +29,7 @@ const close = () => {
 <template>
   <div
       class="relative flex-wrap pb-5 overflow-y-auto break-words bg-white border-0 shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
-    <PulseLoader class="flex justify-center" v-if="props.loading" color="#825ee4"></PulseLoader>
+    <PulseLoader class="h-full w-full flex justify-center items-center" v-if="props.loading" color="#825ee4"></PulseLoader>
     <div v-else>
       <div class="mb-4 border-black/12.5 rounded-t-2xl border-b-0 border-solid p-6 pb-0">
         <div class="flex items-center">
