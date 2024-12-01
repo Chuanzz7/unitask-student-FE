@@ -4,11 +4,14 @@ import {defineProps, onMounted, reactive} from "vue";
 import SearchBar from "@/components/SearchBar.vue";
 import {useRoute} from 'vue-router'
 import router from "@/router/index.js";
+import PulseLoader from "vue-spinner/src/PulseLoader.vue";
 
 const props = defineProps({
+  addPermission: Boolean,
   title: String,
   detailsPage: String,
-  newPage:String,
+  newPage: String,
+  loading:Boolean,
   content: [{
     id: Number,
     title: String,
@@ -18,7 +21,6 @@ const props = defineProps({
 })
 
 const state = reactive({
-  isLoaded: false,
   isActiveId: Number,
   search: String,
 })
@@ -27,7 +29,6 @@ const route = useRoute()
 
 onMounted(() => {
   state.isActiveId = Number(route.params.id);
-  state.isLoaded = true;
 })
 
 const getId = (id) => {
@@ -54,15 +55,16 @@ const filter = (value) => {
         </div>
         <div class="flex w-1/2 max-w-full px-3 text-right">
           <SearchBar @search-input="filter"></SearchBar>
-          <button class="flex py-2 font-semibold text-blue-500 " @click="newId()">
+          <button v-if="addPermission" class="flex py-2 font-semibold text-blue-500 " @click="newId()">
             <i class="text-lg pi pi-plus my-1 mr-1"></i>
-            <span >Add</span>
+            <span>Add</span>
           </button>
         </div>
       </div>
     </div>
     <div class="max-h-full overflow-y-auto break-words bg-clip-border">
-      <SmallList v-if="state.isLoaded" v-for="content in props.content" @click="getId(content.id)" :data="content"
+      <PulseLoader class="flex justify-center items-center" v-if="props.loading" color="#825ee4"></PulseLoader>
+      <SmallList v-else v-for="content in props.content" @click="getId(content.id)" :data="content"
                  :isActive="content.id === state.isActiveId"></SmallList>
     </div>
   </div>

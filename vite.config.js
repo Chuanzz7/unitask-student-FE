@@ -11,7 +11,7 @@ export default defineConfig({
     port: 3000,
     proxy: {
       '/api': {
-        target: 'https://unitask.api.chuan-dev.xyz/unitask',
+        target: 'http://localhost:8880/unitask',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ''),
       },

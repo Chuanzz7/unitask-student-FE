@@ -6,6 +6,7 @@ const props = defineProps({
   name: String,
   modelValue: String,
   disabled: Boolean,
+  type: "text",
 })
 
 const emit = defineEmits(['update:modelValue']);
@@ -16,12 +17,12 @@ function updateValue(value) {
 </script>
 
 <template>
-  <div class="w-full max-w-full px-3 shrink-0  md:flex-0 transition-all  ">
+  <div class="w-full max-w-full px-3 shrink-0 md:flex-0 transition-all  ">
     <div class="mb-4">
       <label :for="label"
              class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700
              dark:text-white/80">{{ label }}</label>
-      <input :disabled type="text" :value="modelValue" @input="updateValue($event.target.value)"
+      <input :disabled :type="type" :value="modelValue" @input="updateValue($event.target.value)"
              :class="[disabled? 'border-gray-50 bg-gray-50 '
              :'border-gray-300 bg-white '
              ,'focus:shadow-primary-outline dark:bg-slate-850 dark:text-white text-sm leading-5.6 ease block w-full appearance-none ' +

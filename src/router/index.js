@@ -12,7 +12,7 @@ import Dashboard from "@/views/Dashboard.vue";
 import DefaultLayout from "@/components/layout/DefaultLayout.vue";
 import SubjectView from "@/views/subject/SubjectView.vue";
 import AnnouncementView from "@/views/AnnouncementView.vue";
-import AssignmentView from "@/views/AssignmentView.vue";
+import AssignmentView from "@/views/assignment/AssignmentView.vue";
 import GroupView from "@/views/GroupView.vue";
 import TaskView from "@/views/TaskView.vue";
 import DocumentView from "@/views/DocumentView.vue";

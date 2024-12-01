@@ -3,97 +3,67 @@
 import SmallLists from "@/components/small-list/Small-lists.vue";
 import {computed, onMounted, reactive, ref, watch} from "vue";
 import SubjectForm from "@/components/subject/SubjectForm.vue";
+import {useAuthStore} from "@/stores/AuthStore.js";
+import {GET_SUBJECT, LIST_SUBJECT} from "@/api/index.js";
+import axios from "axios";
 import {useRoute} from "vue-router";
+import {useToast} from "vue-toastification";
 
 const route = useRoute();
 const currentValue = computed(() => route.params.id);
-const id = ref(route.params.id);
+const auth = useAuthStore();
+const toast = useToast();
 
+const id = ref(route.params.id);
+const model = defineModel({
+  search: String
+})
 const state = reactive({
-  isLoading: true,
   listData: {isLoading: true, content: []},
-  formData: {isLoading: true, content: { isDisabled:true}},
+  formData: {isLoading: true, content: {isDisabled: true}},
 })
 
-const listingApi = () => {
-  // if (error.response.status === 401) {
-  //   toast.error("Bad Credential", {position: "top-center"});
-  // } else {
-  //   toast.error("Something Wrong", {position: "top-center"});
-  // }
-
-  let data = [{
-    id: 1,
-    subjectName: "Software Testing",
-    lecturerName: "Dr Lee Yun Li",
-    subjectCode: "SWE3033",
-  }, {
-    id: 2,
-    subjectName: "Test2",
-    lecturerName: "Name2",
-    subjectCode: "456",
-  }, {
-    id: 3,
-    subjectName: "Software Testing",
-    lecturerName: "Dr Lee Yun Li",
-    subjectCode: "SWE3033",
-  }, {
-    id: 4,
-    subjectName: "Software Testing",
-    lecturerName: "Dr Lee Yun Li",
-    subjectCode: "SWE3033",
-  }, {
-    id: 5,
-    subjectName: "Software Testing",
-    lecturerName: "Dr Lee Yun Li",
-    subjectCode: "SWE3033",
-  }, {
-    id: 6,
-    subjectName: "Software Testing",
-    lecturerName: "Dr Lee Yun Li",
-    subjectCode: "SWE3033",
-  }, {
-    id: 7,
-    subjectName: "Software Testing",
-    lecturerName: "Dr Lee Yun Li",
-    subjectCode: "SWE3033",
-  }, {
-    id: 8,
-    subjectName: "Software Testing",
-    lecturerName: "Dr Lee Yun Li",
-    subjectCode: "SWE3033",
-  }, {
-    id: 9,
-    subjectName: "Software Testing",
-    lecturerName: "Dr Lee Yun Li",
-    subjectCode: "SWE3033",
-  }, {
-    id: 10,
-    subjectName: "Software Testing",
-    lecturerName: "Dr Lee Yun Li",
-    subjectCode: "SWE3033",
-  }]
-
-  state.listData.content = [];
-  data.map((x) => {
-    state.listData.content.push({id: x.id, title: x.subjectCode, description: x.lecturerName, code: x.subjectCode})
-  });
+const listingApi = async () => {
+  try {
+    const response = await axios.get(LIST_SUBJECT);
+    state.listData.isLoading = false;
+    state.listData.content = [];
+    response.data.map((x) => {
+      state.listData.content.push({id: x.id, title: x.subjectName, description: x.lecturerName, code: x.subjectCode})
+    });
+  } catch (error) {
+    toast.error("Something Wrong", {position: "top-center"});
+  }
 }
 
 const subjectApi = async (id) => {
-  //call api
-
-  state.formData.formLoading = false;
-  state.formData.content.isDisabled = true
-  state.formData.content.id = id;
-  state.formData.content.course = "Test";
-  state.formData.content.subjectName = "Code Camp";
-  state.formData.content.assessment = [{name: "Mid term", weightage: "50%"}]
+  if (id != null) {
+    try {
+      const response = await axios.get(`${GET_SUBJECT}${id}`);
+      state.formData.isLoading = false;
+      let x = response.data;
+      state.formData.content.subjectName = x.subjectName;
+      state.formData.content.subjectCode = x.subjectCode;
+      state.formData.content.course = x.course;
+      state.formData.content.creditHour = x.creditHour;
+      state.formData.content.description = x.description;
+      state.formData.content.learningOutcome = x.learningOutcome;
+      state.formData.content.lecturerName = x.lecturerName;
+      state.formData.content.lecturerContact = x.lecturerContact;
+      state.formData.content.lecturerEmail = x.lecturerEmail;
+      state.formData.content.lecturerOffice = x.lecturerName;
+      state.formData.content.assessment=[]
+      x.assessment.map((x) => {
+        state.formData.content.assessment.push({name: x.assessmentName, weightage: x.assessmentWeightage});
+      })
+    } catch (error) {
+      toast.error("Something Wrong", {position: "top-center"});
+    }
+  }
 }
 
 onMounted(() => {
   listingApi()
-  subjectApi(id.value);
 })
 
 watch(
@@ -112,11 +82,14 @@ watch(
     <SmallLists class="h-full flex-row flex-grow mx-3 mb-3 min-w-[30%] basis-[30%]" title="Subjects"
                 details-page="subjectDetails"
                 new-page="subjectCreate"
-                :content="state.listData.content"></SmallLists>
-    <SubjectForm class="h-full flex-row flex-grow mx-3 mb-3 basis-[50%]"
+                :add-permission="auth.isLecturer"
+                :content="state.listData.content"
+                :loading="state.listData.isLoading"></SmallLists>
+    <SubjectForm class="h-full flex-row flex-grow mx-3 mb-3 basis-[60%]"
                  v-if="currentValue != null"
                  v-model="state.formData.content"
-                 :loading="state.isLoading"></SubjectForm>
+                 :edit-permission="auth.isLecturer"
+                 :loading="state.formData.isLoading"></SubjectForm>
   </div>
 </template>
 

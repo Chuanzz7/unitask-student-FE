@@ -1,58 +1,58 @@
-import { computed, ref } from "vue";
+import {computed, ref} from "vue";
 import axios from "axios";
-import { defineStore } from "pinia";
-import { useRouter } from "vue-router";
+import {defineStore} from "pinia";
+import {useRouter} from "vue-router";
 
 import pathnames from "@/router/pathnames";
 
-import { LOGIN, SIGNUP } from "@/api";
+import {LOGIN, SIGNUP} from "@/api";
 
 export const useAuthStore = defineStore("authStore", () => {
-	const router = useRouter();
+    const router = useRouter();
 
-	const token = ref(localStorage.getItem("token") || null);
+    const token = ref(localStorage.getItem("token") || null);
+    const role = ref("")
 
-	const isAuthenticated = computed(() => Boolean(token.value));
+    const isAuthenticated = computed(() => Boolean(token.value));
+    const isLecturer = computed(() => role.value === "LECTURER");
 
-	const login = async (credentials) => {
-		try {
-			const response = await axios.post(LOGIN, credentials);
+    const login = async (credentials) => {
+        try {
+            const response = await axios.post(LOGIN, credentials);
+            token.value = response.data.jwt;
+            role.value = response.data.userRole;
+            // Optionally, save the token to localStorage or cookies
+            localStorage.setItem("token", token.value);
 
-			token.value = response.data;
+            // Set the default Authorization header for future requests
+            axios.defaults.headers.common["Authorization"] = `Bearer ${token.value}`;
+        } catch (error) {
+            console.error("Login failed:", error);
+            throw error;
+        }
+    };
 
-			// Optionally, save the token to localStorage or cookies
-			localStorage.setItem("token", token.value);
+    const signUp = async (credentials) => {
+        try {
+            await axios.post(SIGNUP, credentials);
 
-			// Set the default Authorization header for future requests
-			axios.defaults.headers.common["Authorization"] = token.value;
-		} catch (error) {
-			console.error("Login failed:", error);
+            router.push(pathnames.LoginView);
+        } catch (error) {
+            console.error("Sign up failed:", error);
 
-			throw error;
-		}
-	};
+            throw error;
+        }
+    };
 
-	const signUp = async (credentials) => {
-		try {
-			await axios.post(SIGNUP, credentials);
+    const logout = () => {
+        token.value = null;
 
-			router.push(pathnames.LoginView);
-		} catch (error) {
-			console.error("Sign up failed:", error);
+        localStorage.removeItem("token");
 
-			throw error;
-		}
-	};
+        delete axios.defaults.headers.common["Authorization"];
 
-	const logout = () => {
-		token.value = null;
+        router.push(pathnames.LoginView);
+    };
 
-		localStorage.removeItem("token");
-
-		delete axios.defaults.headers.common["Authorization"];
-
-		router.push(pathnames.LoginView);
-	};
-
-	return { token, isAuthenticated, login, signUp, logout };
-});
+    return {token, isAuthenticated, isLecturer, login, signUp, logout};
+})
