@@ -4,7 +4,7 @@ import {defineProps} from "vue";
 const props = defineProps({
   label: String,
   name: String,
-  modelValue: String,
+  modelValue: [String,Number],
   disabled: Boolean,
   type: "text",
 })

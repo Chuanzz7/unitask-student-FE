@@ -63,9 +63,9 @@ const isActiveLink = (routePath) => {
         </li>
 
         <li class="mt-0.5 w-full">
-          <RouterLink :to="pathnames.Assignment"
+          <RouterLink :to="pathnames.AssignmentView"
                       :class="[
-                          isActiveLink(pathnames.Assignment)
+                          isActiveLink(pathnames.AssignmentView)
            ? 'bg-blue-500/13 dark:text-white dark:opacity-80 text-sm ease-nav-brand rounded-lg font-semibold text-slate-700 '
            : 'dark:text-white dark:opacity-80 text-sm ease-nav-brand',
             'py-2.7 my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors '

@@ -7,10 +7,11 @@ import router from "@/router/index.js";
 import PulseLoader from "vue-spinner/src/PulseLoader.vue";
 
 const props = defineProps({
-  addPermission: Boolean,
+  editable: false,
   title: String,
   detailsPage: String,
   newPage: String,
+  updatePage:String,
   loading: Boolean,
   content: [{
     id: Number,
@@ -32,7 +33,6 @@ onMounted(() => {
 })
 
 const getId = (id) => {
-  router.push({name: props.detailsPage, params: {id: id}})
   state.isActiveId = id
 }
 
@@ -55,7 +55,7 @@ const filter = (value) => {
         </div>
         <div class="flex w-1/2 max-w-full px-3 text-right">
           <SearchBar @search-input="filter"></SearchBar>
-          <button v-if="addPermission" class="flex py-2 font-semibold text-blue-500 " @click="newId()">
+          <button v-if="editable && newPage" class="flex py-2 font-semibold text-blue-500 " @click="newId()">
             <i class="text-lg pi pi-plus my-1 mr-1"></i>
             <span>Add</span>
           </button>
@@ -66,7 +66,8 @@ const filter = (value) => {
                  color="#825ee4"></PulseLoader>
     <div v-else class="max-h-full overflow-y-auto break-words bg-clip-border">
       <SmallList v-for="content in props.content" @click="getId(content.id)" :data="content"
-                 :isActive="content.id === state.isActiveId"></SmallList>
+                 :isActive="content.id === state.isActiveId" :update-page="props.updatePage"
+                 :details-page="props.detailsPage" :editable="props.editable"></SmallList>
     </div>
   </div>
 </template>

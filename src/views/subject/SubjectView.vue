@@ -19,7 +19,7 @@ const model = defineModel({
 })
 const state = reactive({
   listData: {isLoading: true, content: []},
-  formData: {isLoading: true, content: {isDisabled: true}},
+  formData: {isLoading: true, content: {}},
 })
 
 const listingApi = async () => {
@@ -51,7 +51,7 @@ const subjectApi = async (id) => {
       state.formData.content.lecturerContact = x.lecturerContact;
       state.formData.content.lecturerEmail = x.lecturerEmail;
       state.formData.content.lecturerOffice = x.lecturerName;
-      state.formData.content.assessment=[]
+      state.formData.content.assessment = []
       x.assessment.map((x) => {
         state.formData.content.assessment.push({name: x.assessmentName, weightage: x.assessmentWeightage});
       })
@@ -81,13 +81,15 @@ watch(
     <SmallLists class="h-full flex-row flex-grow mx-3 mb-3 min-w-[30%] basis-[30%]" title="Subjects"
                 details-page="subjectDetails"
                 new-page="subjectCreate"
-                :add-permission="auth.isLecturer"
+                update-page="subjectUpdate"
+                :editable="auth.isLecturer"
                 :content="state.listData.content"
                 :loading="state.listData.isLoading"></SmallLists>
     <SubjectForm class="h-full flex-row flex-grow mx-3 mb-3 basis-[60%]"
+                 disabled
+                 :is-lecturer="auth.isLecturer"
                  v-if="currentValue != null"
                  v-model="state.formData.content"
-                 :edit-permission="auth.isLecturer"
                  :loading="state.formData.isLoading"></SubjectForm>
   </div>
 </template>

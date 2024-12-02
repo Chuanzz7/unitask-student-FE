@@ -10,7 +10,7 @@ export const useAuthStore = defineStore("authStore", () => {
     const router = useRouter();
 
     const token = ref(localStorage.getItem("token") || null);
-    const role = ref("")
+    const role = ref(localStorage.getItem("userRole") || null);
 
     const isAuthenticated = computed(() => Boolean(token.value));
     const isLecturer = computed(() => role.value === "LECTURER");
@@ -22,6 +22,7 @@ export const useAuthStore = defineStore("authStore", () => {
             role.value = response.data.userRole;
             // Optionally, save the token to localStorage or cookies
             localStorage.setItem("token", token.value);
+            localStorage.setItem("userRole", role.value);
 
             // Set the default Authorization header for future requests
             apiClient.defaults.headers.common["Authorization"] = `Bearer ${token.value}`;

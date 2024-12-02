@@ -4,6 +4,7 @@ import SmallLists from "@/components/small-list/Small-lists.vue";
 import {computed, onMounted, reactive, ref, watch} from "vue";
 import {useRoute} from "vue-router";
 import {useAuthStore} from "@/stores/AuthStore.js";
+import AssignmentForm from "@/components/assignment/AssignmentForm.vue";
 
 const route = useRoute();
 const currentValue = computed(() => route.params.id);
@@ -31,27 +32,31 @@ const listingApi = () => {
   });
 }
 
-const subjectApi = async (id) => {
-  //call api
-
+const assignmentApi = async (id) => {
   state.formData.formLoading = false;
-  state.formData.content.isDisabled = true
   state.formData.content.id = id;
-  state.formData.content.course = "Test";
+  state.formData.content.assessmentName = "Test One";
+  state.formData.content.assessmentWeightage = "20%";
+  state.formData.content.assessmentMode = "Group";
+  state.formData.content.dueDate = "20/12/2024";
+  state.formData.content.lecturerInstruction = "a\na\na\na\na\na\na\na\na\na\na\na";
+  state.formData.content.subjectCode = "Test";
   state.formData.content.subjectName = "Code Camp";
-  state.formData.content.assessment = [{name: "Mid term", weightage: "50%"}]
+  state.formData.content.markingRubric = [{criteriaName: "Test", criteriaWeightage: "20%"}]
+  state.formData.content.uploadedDocument = [{fileName: "Mid term.pdf", url: "www.google.com"}];
+  state.formData.content.attachedDocument = [{fileName: "Mid term.pdf", url: "www.google.com"}];
 }
 
 onMounted(() => {
   listingApi()
-  subjectApi(id.value);
+  assignmentApi(id.value);
 })
 
 watch(
     () => route.params.id,
     (newId) => {
       id.value = newId;
-      subjectApi(newId); // Fetch data when the ID changes
+      assignmentApi(newId); // Fetch data when the ID changes
     },
     {immediate: true} // Trigger on initial mount
 );
@@ -62,9 +67,16 @@ watch(
   <div class="h-full flex flex-wrap max-w-full pb-4 ">
     <SmallLists class="h-full flex-row flex-grow mx-3 mb-3 min-w-[30%] basis-[30%]" title="Assignment"
                 details-page="assignmentDetails"
-                new-page="assignmentCreate"
+                update-page="assignmentUpdate"
+                :editable="auth.isLecturer"
                 :add-permission="auth.isLecturer"
                 :content="state.listData.content"></SmallLists>
+    <AssignmentForm class="h-full flex-row flex-grow mx-3 mb-3 basis-[60%]"
+                    disabled
+                    v-if="currentValue != null"
+                    v-model="state.formData.content"
+                    :isLecturer="auth.isLecturer"
+                    :loading="state.formData.isLoading"></AssignmentForm>
   </div>
 </template>
 
