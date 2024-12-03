@@ -10,7 +10,6 @@ import {useToast} from "vue-toastification";
 
 const route = useRoute();
 const currentValue = computed(() => route.params.id);
-const auth = useAuthStore();
 const toast = useToast();
 
 const id = ref(route.params.id);
@@ -82,12 +81,10 @@ watch(
                 details-page="subjectDetails"
                 new-page="subjectCreate"
                 update-page="subjectUpdate"
-                :editable="auth.isLecturer"
                 :content="state.listData.content"
                 :loading="state.listData.isLoading"></SmallLists>
     <SubjectForm class="h-full flex-row flex-grow mx-3 mb-3 basis-[60%]"
                  disabled
-                 :is-lecturer="auth.isLecturer"
                  v-if="currentValue != null"
                  v-model="state.formData.content"
                  :loading="state.formData.isLoading"></SubjectForm>

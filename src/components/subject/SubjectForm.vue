@@ -11,7 +11,6 @@ const router = useRouter();
 const props = defineProps({
   disabled: Boolean,
   loading: Boolean,
-  isLecturer:Boolean,
 })
 const model = defineModel()
 

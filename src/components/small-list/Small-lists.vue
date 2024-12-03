@@ -7,7 +7,7 @@ import router from "@/router/index.js";
 import PulseLoader from "vue-spinner/src/PulseLoader.vue";
 
 const props = defineProps({
-  editable: false,
+  editable: Boolean,
   title: String,
   detailsPage: String,
   newPage: String,
@@ -67,7 +67,7 @@ const filter = (value) => {
     <div v-else class="max-h-full overflow-y-auto break-words bg-clip-border">
       <SmallList v-for="content in props.content" @click="getId(content.id)" :data="content"
                  :isActive="content.id === state.isActiveId" :update-page="props.updatePage"
-                 :details-page="props.detailsPage" :editable="props.editable"></SmallList>
+                 :details-page="props.detailsPage" ></SmallList>
     </div>
   </div>
 </template>

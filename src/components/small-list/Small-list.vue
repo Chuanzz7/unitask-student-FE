@@ -1,6 +1,7 @@
 <script setup>
 
 import {useRouter} from "vue-router";
+import { onMounted } from "vue";
 
 const router = useRouter()
 const props = defineProps({
@@ -23,6 +24,10 @@ const routeToDetails = () => {
 const routeToEdit = () => {
   router.push({name: props.updatePage, params: {id: props.data.id}})
 }
+
+onMounted(()=>{
+	console.log(props.editable);
+})
 
 </script>
 
