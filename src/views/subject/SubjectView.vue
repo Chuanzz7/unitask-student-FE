@@ -27,7 +27,7 @@ const listingApi = async () => {
     state.listData.isLoading = false;
     state.listData.content = [];
     response.data.map((x) => {
-      state.listData.content.push({id: x.id, title: x.subjectName, description: x.lecturerName, code: x.subjectCode})
+      state.listData.content.push({id: x.id, title: x.name, description: x.lecturerName, code: x.code, status: x.status})
     });
   } catch (error) {
     toast.error("Something Wrong", {position: "top-center"});

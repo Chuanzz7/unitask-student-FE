@@ -109,7 +109,7 @@ const submitLogin = async () => {
 									class="relative flex flex-col justify-center h-full bg-cover px-24 m-4 overflow-hidden bg-[url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/argon-dashboard-pro/assets/img/signin-ill.jpg')] rounded-xl"
 								>
 									<span class="absolute top-0 left-0 w-full h-full bg-center bg-cover bg-gradient-to-tl from-blue-500 to-violet-500 opacity-60"></span>
-									<h4 class="z-20 mt-12 font-bold text-white">"Attention is the new currency"</h4>
+									<h4 class="z-20 mt-12 font-bold text-white">Student Portal</h4>
 									<p class="z-20 text-white">The more effortless the writing looks, the more effort the writer actually put into the process.</p>
 								</div>
 							</div>
