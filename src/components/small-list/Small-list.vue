@@ -1,7 +1,6 @@
 <script setup>
 
 import { useRouter } from "vue-router";
-import { onMounted } from "vue";
 
 const router = useRouter();
 const props = defineProps({
@@ -20,10 +19,6 @@ const props = defineProps({
 
 const routeToDetails = () => {
 	router.push({ name: props.detailsPage, params: { id: props.data.id } });
-};
-
-const routeToEdit = () => {
-	router.push({ name: props.updatePage, params: { id: props.data.id } });
 };
 
 </script>
@@ -46,11 +41,10 @@ const routeToEdit = () => {
 					</div>
 					<div
 						class="flex text-center align-middle items-center text-sm leading-normal  transition-all bg-transparent border-0 ease-in bg-150 rounded-lg shadow-none dark:text-white/80">
-					  <span
-						  class="dark:text-white  ml-6 font-bold  uppercase
+					  	<span class="dark:text-white  ml-6 font-bold  uppercase
 						  text-sm active:opacity-85 tracking-tight-rem bg-x-25 text-slate-700">
-						{{ data.code }}
-					  </span>
+							{{ data.code }}
+					 	 </span>
 					</div>
 				</div>
 			</li>
