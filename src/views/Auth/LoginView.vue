@@ -40,7 +40,7 @@ const submitLogin = async () => {
 		form.isLoading = false;
 
 		//toast
-		if (error.response.status === 401) {
+		if (error.response?.status === 401) {
 			toast.error("Bad Credential", { position: "top-center" });
 		} else {
 			toast.error("Something Wrong", { position: "top-center" });
