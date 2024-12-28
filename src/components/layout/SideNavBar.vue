@@ -31,9 +31,9 @@ const isActiveLink = (routePath) => {
     <div class="items-center block w-auto max-h-screen overflow-auto grow basis-full">
       <ul class="flex flex-col pl-0 mb-0">
         <li class="mt-0.5 w-full">
-          <RouterLink :to="pathnames.Announcement"
+          <RouterLink :to="pathnames.AnnouncementView"
                       :class="[
-                          isActiveLink(pathnames.Announcement)
+                          isActiveLink(pathnames.AnnouncementView)
            ? 'bg-blue-500/13 dark:text-white dark:opacity-80 text-sm ease-nav-brand rounded-lg font-semibold text-slate-700 '
            : 'dark:text-white dark:opacity-80 text-sm ease-nav-brand',
             'py-2.7 my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors '

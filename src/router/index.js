@@ -63,7 +63,7 @@ const router = createRouter({
                     component: Dashboard,
                 },
                 {
-                    path: pathnames.Announcement,
+                    path: pathnames.AnnouncementView,
                     name: "announcement",
                     component: AnnouncementView,
                 },
