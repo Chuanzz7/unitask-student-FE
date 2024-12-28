@@ -33,6 +33,10 @@ const breadcrumbsItem = {
         { label: "Page", to: "/" },
         { label: "Group", to: pathnames.Group },
     ],
+    groupDetails: [
+        { label: "Page", to: "/" },
+        { label: "Group", to: pathnames.Group },
+    ],
     task: [
         { label: "Page", to: "/" },
         { label: "Task", to: pathnames.Task },

@@ -18,7 +18,9 @@ import SubjectView from "@/views/subject/SubjectView.vue";
 import AssignmentSubmissionView from "@/views/assignment/AssignmentSubmissionView.vue";
 import AssignmentSubmissionDetailsView from "@/views/assignment/AssignmentSubmissionDetailsView.vue";
 
-import GroupView from "@/views/GroupView.vue";
+import GroupView from "@/views/group/GroupView.vue";
+import GroupDetailsView from "@/views/group/GroupDetailsView.vue";
+
 import TaskView from "@/views/TaskView.vue";
 import DocumentView from "@/views/DocumentView.vue";
 
@@ -97,6 +99,11 @@ const router = createRouter({
                     path: pathnames.Group,
                     name: "group",
                     component: GroupView,
+                },
+                {
+                    path: pathnames.Group + "/:id",
+                    name: "groupDetails",
+                    component: GroupDetailsView,
                 },
                 {
                     path: pathnames.Task,

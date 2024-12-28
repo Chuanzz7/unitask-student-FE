@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 export * from './auth';
+export * from "./group";
 export * from './subject';
 export * from "./assessment";
 export * from "./announcement";
