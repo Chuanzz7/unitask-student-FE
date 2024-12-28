@@ -11,7 +11,7 @@ import NotFoundView from "@/views/NotFoundView.vue";
 import Dashboard from "@/views/Dashboard.vue";
 import DefaultLayout from "@/components/layout/DefaultLayout.vue";
 
-import AnnouncementView from "@/views/AnnouncementView.vue";
+import AnnouncementView from "@/views/announcement/AnnouncementView.vue";
 
 import SubjectView from "@/views/subject/SubjectView.vue";
 
