@@ -10,15 +10,18 @@ const props = defineProps({
 	search: Function,
 	editable: Boolean,
 	title: String,
+	titleIcon: String,
 	detailsPage: String,
-	newPage: String,
 	loading: Boolean,
-	content: [{
-		id: Number,
-		title: String,
-		description: String,
-		code: String,
-	}],
+	content: [
+		{
+			id: Number,
+			title: String,
+			description: String,
+			code: String,
+			color: String,
+		},
+	],
 });
 
 const model = defineModel();
@@ -37,42 +40,28 @@ onMounted(() => {
 const getId = (id) => {
 	state.isActiveId = id;
 };
-
-const newId = () => {
-	router.push({ name: props.newPage, params: { id: "new" } });
-};
-
 </script>
 
 <template>
-	<div
-		class="h-full overflow-y-hidden pb-14 px-1 bg-white border-0 border-transparent border-solid shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl ">
+	<div class="h-full overflow-y-hidden pb-14 px-1 bg-white border-0 border-transparent border-solid shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl">
 		<div class="p-6 pb-0 mb-0 border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
 			<div class="flex flex-wrap -mx-3">
 				<div class="flex items-center flex-none w-1/2 max-w-full px-3">
+					<h5 :class="`relative top-0.5 leading-normal pi ${titleIcon} pr-2`"></h5>
 					<h5 class="mb-0 dark:text-white">{{ title }}</h5>
 				</div>
+
 				<div class="flex w-1/2 max-w-full px-3 text-right">
 					<SearchBar :search="search" v-model="model"></SearchBar>
-					<button v-if="editable && newPage" class="flex py-2 font-semibold text-blue-500 " @click="newId()">
-						<i class="text-lg pi pi-plus my-1 mr-1"></i>
-						<span>Add</span>
-					</button>
 				</div>
 			</div>
 		</div>
-		<PulseLoader class="h-full w-full flex justify-center items-center" v-if="props.loading"
-					 color="#825ee4"></PulseLoader>
+
+		<PulseLoader class="h-full w-full flex justify-center items-center" v-if="props.loading" color="#825ee4"></PulseLoader>
 		<div v-else class="max-h-full overflow-y-auto break-words bg-clip-border">
-			<SmallList v-for="content in props.content"
-					   @click="getId(content.id)"
-					   :data="content"
-					   :isActive="content.id === state.isActiveId"
-					   :details-page="props.detailsPage"></SmallList>
+			<SmallList v-for="content in props.content" @click="getId(content.id)" :data="content" :isActive="content.id === state.isActiveId" :details-page="props.detailsPage"></SmallList>
 		</div>
 	</div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

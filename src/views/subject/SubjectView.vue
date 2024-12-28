@@ -1,5 +1,4 @@
 <script setup>
-
 import SmallLists from "@/components/small-list/Small-lists.vue";
 import { computed, onMounted, reactive, ref, watch } from "vue";
 import SubjectForm from "@/components/subject/SubjectForm.vue";
@@ -35,7 +34,7 @@ const listingApi = async () => {
 				title: x.name,
 				description: x.lecturerName,
 				code: x.code,
-				status: x.status,
+				color: x.color,
 			});
 		});
 	} catch (error) {
@@ -45,7 +44,6 @@ const listingApi = async () => {
 };
 
 const subjectApi = async (id) => {
-	console.log(state.search);
 	if (id != null) {
 		try {
 			const response = await apiClient.get(`${GET_SUBJECT}${id}`);
@@ -64,9 +62,10 @@ const subjectApi = async (id) => {
 			state.formData.content.lecturerContact = subject.lecturerContact;
 			state.formData.content.lecturerEmail = subject.lecturerEmail;
 			state.formData.content.lecturerOffice = subject.lecturerName;
+			state.formData.content.color = subject.color;
 			state.formData.content.assessment = [];
 			subject.assessment.map((x) => {
-				state.formData.content.assessment.push({ name: x.name, weightage: x.weightage });
+				state.formData.content.assessment.push({ name: x.name, assignmentMode: x.assignmentMode, weightage: x.weightage });
 			});
 		} catch (error) {
 			toast.error("Something Wrong", { position: POSITION.TOP_CENTER });
@@ -84,29 +83,24 @@ watch(
 		id.value = newId;
 		subjectApi(newId); // Fetch data when the ID changes
 	},
-	{ immediate: true }, // Trigger on initial mount
+	{ immediate: true } // Trigger on initial mount
 );
 </script>
 
 <template>
-	<div class="h-full flex flex-wrap max-w-full pb-4 ">
-		<SmallLists class="h-full flex-row flex-grow mx-3 mb-3 min-w-[30%] basis-[30%]" title="Subjects"
-					details-page="subjectDetails"
-					new-page="subjectCreate"
-					update-page="subjectUpdate"
-					v-model="state.search"
-					:search="listingApi"
-					:content="state.listData.content"
-					:loading="state.listData.isLoading"></SmallLists>
-		<SubjectForm class="h-full flex-row flex-grow mx-3 mb-3 basis-[60%]"
-					 disabled
-					 v-if="currentValue != null"
-					 v-model="state.formData.content"
-					 :loading="state.formData.isLoading"></SubjectForm>
+	<div class="h-full flex flex-wrap max-w-full pb-4">
+		<SmallLists
+			class="h-full flex-row flex-grow mx-3 mb-3 min-w-[30%] basis-[30%]"
+			title="Subjects"
+			details-page="subjectDetails"
+			title-icon="text-blue-500 pi-book"
+			v-model="state.search"
+			:search="listingApi"
+			:content="state.listData.content"
+			:loading="state.listData.isLoading"
+		></SmallLists>
+		<SubjectForm class="h-full flex-row flex-grow mx-3 mb-3 basis-[60%]" disabled v-if="currentValue != null" v-model="state.formData.content" :loading="state.formData.isLoading"></SubjectForm>
 	</div>
 </template>
 
-
-<style scoped>
-
-</style>
+<style scoped></style>
