@@ -10,6 +10,7 @@ const pathnames = {
     Group: "/group",
     Task: "/task",
     Document: "/document",
+    Profile: "/profile",
 };
 
 export default pathnames;

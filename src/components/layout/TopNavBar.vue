@@ -4,7 +4,10 @@ import {reactive} from "vue";
 import {useAuthStore} from "@/stores/AuthStore.js";
 
 import AppBreadcrumb from "@/components/AppBreadcrumb.vue";
+import {useRouter} from "vue-router";
+import pathnames from "@/router/pathnames.js";
 
+const router = useRouter();
 const auth = useAuthStore();
 
 const state = reactive({
@@ -13,6 +16,10 @@ const state = reactive({
 
 const signOut = () => {
   auth.logout();
+};
+
+const profile = () => {
+  router.push(pathnames.Profile)
 };
 
 const onHandleSideBar = () => {
@@ -59,7 +66,15 @@ window.addEventListener("click", (e) => {
       <div class="flex items-center mt-2 grow sm:mt-0 sm:mr-6 md:mr-0 lg:flex lg:basis-auto">
         <div class="flex items-center md:ml-auto md:pr-4"></div>
         <ul class="flex flex-row justify-end pl-0 mb-0 list-none md-max:w-full">
-          <li class="flex items-center">
+            <li class="flex items-center">
+            <button class="block px-0 py-2 mx-5 text-sm font-semibold text-white transition-all ease-nav-brand"
+                    @click="profile">
+              <i class="pi pi-user sm:mr-1"></i>
+              <span class="hidden sm:inline">My Profile</span>
+            </button>
+          </li>
+         
+            <li class="flex items-center">
             <button class="block px-0 py-2 text-sm font-semibold text-white transition-all ease-nav-brand"
                     @click="signOut">
               <i class="fa fa-user sm:mr-1"></i>
