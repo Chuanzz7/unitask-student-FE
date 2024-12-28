@@ -17,21 +17,13 @@ const breadcrumbsItem = {
         { label: "Page", to: "/" },
         { label: "Subject", to: pathnames.SubjectView },
     ],
-    subjectCreate: [
+    assignmentSubmission: [
         { label: "Page", to: "/" },
-        { label: "Subject", to: pathnames.SubjectView },
+        { label: "Assignment", to: pathnames.AssignmentSubmissionView }
     ],
-    assignment: [
+    assignmentSubmissionDetails: [
         { label: "Page", to: "/" },
-        { label: "Assignment", to: pathnames.AssignmentView },
-    ],
-    assignmentDetails: [
-        { label: "Page", to: "/" },
-        { label: "Assignment", to: pathnames.SubjectView },
-    ],
-    assignmentCreate: [
-        { label: "Page", to: "/" },
-        { label: "Assignment", to: pathnames.SubjectView },
+        { label: "Assignment", to: pathnames.AssignmentSubmissionView }
     ],
     profile: [
         { label: "Page", to: "/" },

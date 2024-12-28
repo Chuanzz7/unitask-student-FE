@@ -2,7 +2,8 @@ import axios from 'axios';
 
 export * from './auth';
 export * from './subject';
-export * from "./announcement.js";
+export * from "./assessment";
+export * from "./announcement";
 
 
 export const apiClient = axios.create({
