@@ -8,11 +8,14 @@ const props = defineProps({
 });
 
 const model = defineModel();
+
 </script>
 
 <template>
-	<div class="w-full max-w-full px-3 shrink-0 md:flex-0 transition-all">
-		<label :for="label" class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700 dark:text-white/80">{{ label }}</label>
+	<div class="w-full max-w-full px-3 shrink-0 md:flex-0 transition-all  ">
+		<label :for="label" class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700 dark:text-white/80">{{
+				label
+			}}</label>
 
 		<Dropdown
 			v-model="model"

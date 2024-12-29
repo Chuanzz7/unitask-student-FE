@@ -69,39 +69,21 @@ const assignment = ref(false);
 					</RouterLink>
 				</li>
 
-				<li
-					:class="[
-						isActiveLink(pathnames.AssignmentSubmissionView)
-							? 'bg-blue-500/13 dark:text-white dark:opacity-80 text-sm ease-nav-brand rounded-lg  text-slate-700 '
-							: 'dark:text-white dark:opacity-80 text-sm ease-nav-brand',
-						'py-2.7 my-0 mx-2 flex-col items-center whitespace-nowrap px-4 transition-colors ',
-					]"
-				>
-					<div @click="openAssignment" class="flex items-center">
-						<div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-							<i class="relative top-0 text-sm leading-normal text-orange-500 pi pi-clipboard"></i>
+				<li class="mt-0.5 w-full">
+					<RouterLink
+						:to="pathnames.AssignmentView"
+						:class="[
+							isActiveLink(pathnames.AssignmentView)
+								? 'bg-blue-500/13 dark:text-white dark:opacity-80 text-sm ease-nav-brand rounded-lg font-semibold text-slate-700 '
+								: 'dark:text-white dark:opacity-80 text-sm ease-nav-brand',
+							'py-2.7 my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors ',
+						]"
+					>
+						<div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center fill-current stroke-0 text-center xl:p-2.5">
+							<i class="relative top-0 text-sm leading-normal text-orange-500 pi pi-pen-to-square"></i>
 						</div>
-						<span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Assignments</span>
-					</div>
-
-					<ul v-if="assignment">
-						<li class="mt-0.5 w-full">
-							<RouterLink
-								:to="pathnames.AssignmentSubmissionView"
-								:class="[
-									isActiveLink(pathnames.AssignmentSubmissionView)
-										? 'bg-blue-500/13 dark:text-white dark:opacity-80 text-sm ease-nav-brand rounded-lg font-semibold text-slate-700 '
-										: 'dark:text-white dark:opacity-80 text-sm ease-nav-brand',
-									'py-2.7 my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors ',
-								]"
-							>
-								<div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-									<i class="relative top-0 text-sm leading-normal text-orange-500 pi pi-clone"></i>
-								</div>
-								<span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Submissions</span>
-							</RouterLink>
-						</li>
-					</ul>
+						<span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Assignment</span>
+					</RouterLink>
 				</li>
 
 				<li class="mt-0.5 w-full">

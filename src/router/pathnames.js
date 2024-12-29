@@ -6,7 +6,7 @@ const pathnames = {
     DashboardView: "/dashboard",
     SubjectView: "/subject",
     AnnouncementView: "/announcement",
-    AssignmentSubmissionView: "/assignment/submissions",
+    AssignmentView: "/assignment/details",
     Group: "/group",
     Task: "/task",
     Document: "/document",
