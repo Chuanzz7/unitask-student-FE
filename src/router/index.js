@@ -19,7 +19,7 @@ import GroupView from "@/views/group/GroupView.vue";
 import GroupDetailsView from "@/views/group/GroupDetailsView.vue";
 
 import TaskView from "@/views/TaskView.vue";
-import DocumentView from "@/views/DocumentView.vue";
+import DocumentView from "@/views/Document/DocumentView.vue";
 
 import ProfileView from "@/views/ProfileView.vue";
 import AssignmentView from "@/views/assignment/AssignmentView.vue";
