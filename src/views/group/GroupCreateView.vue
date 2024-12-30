@@ -32,6 +32,7 @@ const studentOption = async (id) => {
 		try {
 			const response = await apiClient.get(`${GET_STUDENT_ASSESSMENT(id)}`);
 			isLoading.value = false;
+			formData.option = [];
 			let data = response.data;
 			data.forEach(x => formData.option.push({
 				value: x.id,
