@@ -3,11 +3,10 @@
 import { onMounted, reactive, ref } from "vue";
 import { POSITION, useToast } from "vue-toastification";
 import { useRoute, useRouter } from "vue-router";
-import GroupForm from "@/components/group/GroupForm.vue";
-import { apiClient, JOIN_GROUP } from "@/api/index.js";
-import { GET_GROUP, GET_STUDENT_ASSESSMENT } from "@/api/group.js";
-import AppButton from "@/components/AppButton.vue";
+import { apiClient, GET_GROUP, GET_STUDENT_ASSESSMENT, PUT_GROUP } from "@/api/index.js";
 import pathnames from "@/router/pathnames.js";
+import GroupForm from "@/components/group/GroupForm.vue";
+import AppButton from "@/components/AppButton.vue";
 
 const toast = useToast();
 const route = useRoute();
@@ -16,7 +15,6 @@ const isLoading = ref(true);
 const formData = reactive({
 	option: [],
 	data: {
-		id: 0,
 		name: "",
 		description: "",
 		openForPublic: false,
@@ -32,16 +30,12 @@ const readApi = async (id) => {
 	if (id != null) {
 		try {
 			const response = await apiClient.get(`${GET_GROUP(id)}`);
-			console.log(response);
-			if (response.status === 200) {
-				formData.data = response.data;
-				await studentOption(formData.data.assessment.id);
-			}
+			formData.data = response.data;
 		} catch (error) {
-			console.log(error)
 			toast.error("Something Wrong", { position: POSITION.TOP_CENTER });
 		}
 	}
+	await studentOption(formData.data.assessment.id);
 };
 
 const studentOption = async (id) => {
@@ -59,15 +53,22 @@ const studentOption = async (id) => {
 	}
 };
 
-const join = async () => {
+const update = async () => {
 	try {
-		const response = await apiClient.post(`${JOIN_GROUP(formData.data.id)}`);
-		if (response.status === 200) {
-			toast.success("Successfully joined", { position: POSITION.TOP_CENTER });
-			router.push(pathnames.Group);
-		}
+		let payload = {
+			name: formData.data.name,
+			description: formData.data.description,
+			openForPublic: formData.data.openForPublic,
+			locked: formData.data.locked,
+			members: [],
+		};
+		formData.data.groupMembers.forEach(x => payload.members.push(x.id));
+		console.log(payload);
+		await apiClient.put(`${PUT_GROUP(formData.data.id)}`, payload);
+		router.push(pathnames.Group);
+		toast.success("Updated Successfully", { position: POSITION.TOP_CENTER });
 	} catch (error) {
-		console.error(error);
+		console.log(error)
 		toast.error("Something Wrong", { position: POSITION.TOP_CENTER });
 	}
 };
@@ -82,11 +83,11 @@ onMounted(() => {
 
 <template>
 	<div class="flex-col w-full justify-items-center">
-		<GroupForm disabled
+		<GroupForm :disabled="formData.data.locked"
 				   :loading="isLoading"
 				   v-model:data="formData.data"
 				   v-model:option="formData.option"></GroupForm>
-		<AppButton @click="join" class="mb-5">Join</AppButton>
+		<AppButton @click="update" class="mb-5">Update</AppButton>
 
 	</div>
 </template>

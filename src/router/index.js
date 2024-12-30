@@ -17,12 +17,14 @@ import SubjectView from "@/views/subject/SubjectView.vue";
 
 import GroupView from "@/views/group/GroupView.vue";
 import GroupDetailsView from "@/views/group/GroupDetailsView.vue";
+import GroupEditView from "@/views/group/GroupEditView.vue";
 
 import TaskView from "@/views/TaskView.vue";
 import DocumentView from "@/views/Document/DocumentView.vue";
 
 import ProfileView from "@/views/ProfileView.vue";
 import AssignmentView from "@/views/assignment/AssignmentView.vue";
+import GroupCreateView from "@/views/group/GroupCreateView.vue";
 
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
@@ -111,6 +113,16 @@ const router = createRouter({
 				{
 					path: pathnames.Group + "/:id",
 					name: "groupDetails",
+					component: GroupEditView,
+				},
+				{
+					path: pathnames.Group + "/create",
+					name: "groupCreate",
+					component: GroupCreateView,
+				},
+				{
+					path: pathnames.GroupPublicView + "/:id",
+					name: "groupPublic",
 					component: GroupDetailsView,
 				},
 				{

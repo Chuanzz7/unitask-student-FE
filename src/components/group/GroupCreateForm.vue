@@ -6,17 +6,29 @@ import pathnames from "@/router/pathnames.js";
 import AppSelectInput from "@/components/form/AppSelectInput.vue";
 import ToggleInput from "@/components/form/ToggleInput.vue";
 import TextArea from "@/components/form/TextArea.vue";
+import { apiClient, GROUP_ASSESSMENT } from "@/api/index.js";
+import { POSITION, useToast } from "vue-toastification";
+import { onMounted, reactive, watch } from "vue";
 
+const toast = useToast();
 const router = useRouter();
 const props = defineProps({
 	grade: Function,
 	disabled: Boolean,
 	loading: Boolean,
 	create: Boolean,
+	options: Array,
 });
 
 const option = defineModel("option");
 const data = defineModel("data");
+
+const formData = reactive({
+	assessmentOption: [],
+	maxNumber: null,
+	subjectName: null,
+	subjectCode: null,
+});
 
 const close = () => {
 	router.push(pathnames.Group);
@@ -29,6 +41,40 @@ const addMember = () => {
 const removeMember = (index) => {
 	data.value.groupMembers.splice(index, 1);
 };
+
+const assessmentOption = async () => {
+	try {
+		const response = await apiClient.get(`${GROUP_ASSESSMENT}`);
+		let data = response.data;
+		formData.assessmentOption = [];
+		data.forEach(x => formData.assessmentOption.push({
+			value: x.id,
+			label: x.name,
+			maxMember: x.maxNumber,
+			subjectName: x.subjectName,
+			subjectCode: x.subjectCode,
+		}));
+	} catch (error) {
+		toast.error("Something Wrong", { position: POSITION.TOP_CENTER });
+	}
+};
+
+onMounted(() => {
+	assessmentOption();
+});
+
+watch(
+	() => data.value.assessmentId,
+	(newId) => {
+		let option = formData.assessmentOption.find(x => x.value === newId);
+		if (option != null) {
+			formData.maxMember = option.maxMember;
+			formData.subjectName = option.subjectName;
+			formData.subjectCode = option.subjectCode;
+		}
+	},
+	{ immediate: true }, // Trigger on initial mount
+);
 
 </script>
 <template>
@@ -49,20 +95,21 @@ const removeMember = (index) => {
 			<div class="flex-auto px-6">
 				<p class="leading-normal uppercase dark:text-white dark:opacity-60 text-sm">Group Information</p>
 				<div class="flex flex-wrap -mx-3">
-					<TextInput :disabled="disabled" class="md:w-6/12" label="Group Name"
+					<TextInput class="md:w-6/12" label="Group Name"
 							   v-model="data.name"></TextInput>
-					<ToggleInput :disabled="disabled" class="md:w-6/12" label="Open For Public"
+					<ToggleInput class="md:w-6/12" label="Open For Public"
 								 v-model="data.openForPublic"></ToggleInput>
-					<TextArea :disabled="disabled" class="md:w-full" label="Description"
+					<TextArea class="md:w-full" label="Description"
 							  v-model="data.description"></TextArea>
-					<TextInput disabled class="md:w-6/12" label="Assignment Name"
-							   v-model="data.assessment.name"></TextInput>
+					<AppSelectInput class="md:w-6/12" :options="formData.assessmentOption"
+									label="Assignment Name"
+									v-model="data.assessmentId"></AppSelectInput>
 					<TextInput disabled type="number" class="md:w-6/12" label="Max Members"
-							   v-model="data.assessment.maxMember"></TextInput>
+							   v-model="formData.maxMember"></TextInput>
 					<TextInput disabled class="md:w-6/12" label="Subject Name"
-							   v-model="data.assessment.subject.code"></TextInput>
+							   v-model="formData.subjectName"></TextInput>
 					<TextInput disabled class="md:w-6/12" label="Subject Code"
-							   v-model="data.assessment.subject.name"></TextInput>
+							   v-model="formData.subjectCode"></TextInput>
 				</div>
 
 				<hr class="h-px mx-0 my-4 bg-transparent border-0 opacity-25 bg-gradient-to-r from-transparent via-black/40 to-transparent dark:bg-gradient-to-r dark:from-transparent dark:via-white dark:to-transparent " />

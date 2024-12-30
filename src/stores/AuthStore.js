@@ -28,6 +28,7 @@ export const useAuthStore = defineStore("authStore", () => {
             apiClient.defaults.headers.common["Authorization"] = `Bearer ${token.value}`;
         } catch (error) {
             console.error("Login failed:", error);
+            router.push(pathnames.LoginView);
             throw error;
         }
     };

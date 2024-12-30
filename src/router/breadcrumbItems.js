@@ -17,23 +17,19 @@ const breadcrumbsItem = {
         { label: "Page", to: "/" },
         { label: "Subject", to: pathnames.SubjectView },
     ],
-    assignmentSubmission: [
-        { label: "Page", to: "/" },
-        { label: "Assignment", to: pathnames.AssignmentSubmissionView }
-    ],
-    assignmentSubmissionDetails: [
-        { label: "Page", to: "/" },
-        { label: "Assignment", to: pathnames.AssignmentSubmissionView }
-    ],
     profile: [
         { label: "Page", to: "/" },
         { label: "Profile", to: pathnames.Profile },
     ],
-    group: [
+    groupPublic: [
         { label: "Page", to: "/" },
         { label: "Group", to: pathnames.Group },
     ],
     groupDetails: [
+        { label: "Page", to: "/" },
+        { label: "Group", to: pathnames.Group },
+    ],
+    groupCreate: [
         { label: "Page", to: "/" },
         { label: "Group", to: pathnames.Group },
     ],

@@ -8,6 +8,7 @@ const pathnames = {
     AnnouncementView: "/announcement",
     AssignmentView: "/assignment/details",
     Group: "/group",
+    GroupPublicView: "/group/public",
     Task: "/task",
     Document: "/document",
     Profile: "/profile",
