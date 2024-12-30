@@ -1,3 +1,93 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+div.p-dropdown-panel.p-component.p-ripple-disabled {
+	background-color: #fff;
+	color: #334155;
+	border: 1px solid #e2e8f0;
+	border-radius: 6px;
+	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+}
+
+div.p-dropdown-header {
+	padding: 0.5rem 0.5rem 0 0.5rem;
+	border-bottom: none;
+	color: #334155;
+	background: #fff;
+	margin: 0;
+	border-top-right-radius: 6px;
+	border-top-left-radius: 6px;
+}
+
+div.p-dropdown-filter-container {
+	position: relative;
+}
+
+.p-dropdown-filter {
+	width: 100%;
+}
+
+.p-inputtext {
+	font-family: inherit;
+	font-size: inherit;
+	color: #334155;
+	background: #fff;
+	padding: 0.5rem 0.75rem;
+	border: 1px solid #cbd5e1;
+	appearance: none;
+	border-radius: 6px;
+}
+
+input.p-dropdown-filter.p-inputtext.p-component {
+	padding-right: 1.75rem;
+	margin-right: -1.75rem;
+}
+
+div.p-dropdown-items-wrapper {
+	overflow: auto;
+}
+
+.p-dropdown-items {
+	padding: 0.25rem 0.25rem;
+}
+
+li.p-dropdown-item {
+	cursor: pointer;
+	font-weight: normal;
+	white-space: nowrap;
+	position: relative;
+	overflow: hidden;
+	display: flex;
+	align-items: center;
+
+	margin: 2px 0;
+	padding: 0.5rem 0.75rem;
+	border: 0 none;
+	border-radius: 4px;
+}
+
+.p-dropdown-item.p-highlight {
+	color: #047857;
+	background: #ecfdf5;
+}
+
+.p-dropdown-panel .p-dropdown-items .p-dropdown-item:not(.p-highlight):not(.p-disabled).p-focus {
+	color: #1e293b;
+	background: #f1f5f9;
+}
+
+.p-dropdown-empty-message {
+	padding: 0.5rem 0.75rem;
+	color: #334155;
+	background: transparent;
+}
+
+.p-inputwrapper-focus {
+	border-color: #5e72e4;
+	outline: none;
+}
+
+.p-dropdown-filter.p-inputtext.p-component:focus-visible {
+	outline: none;
+}
