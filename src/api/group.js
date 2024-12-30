@@ -19,3 +19,5 @@ export const JOIN_GROUP = (id) => {
 export const LIST_PUBLIC_GROUP = "/student-group/public";
 
 export const CREATE_CROUP = "/group/create";
+
+export const GROUP_ASSESSMENT = "/student-group/assessment/list";
