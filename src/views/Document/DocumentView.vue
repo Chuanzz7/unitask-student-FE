@@ -75,6 +75,9 @@ onMounted(() => {
 <template>
 	<div
 		class="relative flex-wrap pb-5 overflow-y-auto break-words bg-white border-0 shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
+		<div class="flex p-6 pb-0 mb-0 border-b-0 border-b-solid rounded-t-2xl border-b-transparent"><h5
+			:class="`relative top-0.5 leading-normal pi pi-folder text-red-600 pr-2`"></h5> <h5
+			class="mb-0 dark:text-white">Document</h5></div>
 		<div class="mx-5 my-5 border-4 border-blue-500 rounded-xl py-6 px-6">
 			<h6 class="mb-2 text-lg dark:text-white">Advanced Search</h6>
 			<div class="grid grid-cols-1 gap-6 sm:grid-cols-3">
@@ -86,12 +89,6 @@ onMounted(() => {
 						   class="mt-1 block w-full shadow-sm text-lg border-gray-300 rounded-md text-black"></div>
 				<div><label for="group" class="block text-sm font-medium text-gray-700">Subject Name</label> <input
 					v-model="state.subjectName" type="text" id="group"
-					class="mt-1 block w-full shadow-sm text-lg border-gray-300 rounded-md text-black"></div>
-				<div><label for="beforeDate" class="block text-sm font-medium text-gray-700">Before Date</label> <input
-					v-model="state.beforeSubmissionDate" type="date" id="beforeDate"
-					class="mt-1 block w-full shadow-sm text-lg border-gray-300 rounded-md text-black"></div>
-				<div><label for="afterDate" class="block text-sm font-medium text-gray-700">After Date</label> <input
-					v-model="state.afterSubmissionDate" type="date" id="afterDate"
 					class="mt-1 block w-full shadow-sm text-lg border-gray-300 rounded-md text-black"></div>
 			</div>
 			<div class="mt-6 flex justify-center">

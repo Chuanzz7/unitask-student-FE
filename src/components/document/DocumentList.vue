@@ -26,9 +26,12 @@ const rowClass = () => {
 	return "hover:bg-gray-200";  // Tailwind hover effect
 };
 
-const download = async (id, name) => {
+const download = async (id, name, path) => {
 	try {
-		const response = await apiClient.get(DOWNLOAD_DOCUMENT(id), { responseType: "blob" });
+		const response = await apiClient.get(DOWNLOAD_DOCUMENT, {
+			responseType: "blob",
+			params: { path: path },
+		});
 		const url = window.URL.createObjectURL(new Blob([response.data]));
 		const link = document.createElement("a");
 		link.href = url;
@@ -42,10 +45,9 @@ const download = async (id, name) => {
 	}
 };
 
-
 const onButtonSelect = (row) => {
 	console.log("Download clicked for row:", row);
-	download(row.id, row.name);
+	download(row.id, row.name, row.path);
 };
 
 </script>
