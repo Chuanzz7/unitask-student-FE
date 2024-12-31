@@ -6,6 +6,7 @@ import { POSITION } from "vue-toastification";
 import { onMounted, reactive } from "vue";
 import pathnames from "@/router/pathnames.js";
 import DocumentList from "@/components/document/DocumentList.vue";
+import TextInput from "@/components/form/TextInput.vue";
 
 const tableHeaders = [{
 	name: "Document Name",
@@ -81,22 +82,18 @@ onMounted(() => {
 		<div class="mx-5 my-5 border-4 border-blue-500 rounded-xl py-6 px-6">
 			<h6 class="mb-2 text-lg dark:text-white">Advanced Search</h6>
 			<div class="grid grid-cols-1 gap-6 sm:grid-cols-3">
-				<div><label for="subject" class="block text-sm font-medium text-gray-700">Document Name</label> <input
-					v-model="state.search" type="text" id="subject"
-					class="mt-1 block w-full shadow-sm text-lg border-gray-300 rounded-md text-black"></div>
-				<div><label for="assignment" class="block text-sm font-medium text-gray-700">Assignment Name</label>
-					<input v-model="state.assessmentName" type="text" id="assignment"
-						   class="mt-1 block w-full shadow-sm text-lg border-gray-300 rounded-md text-black"></div>
-				<div><label for="group" class="block text-sm font-medium text-gray-700">Subject Name</label> <input
-					v-model="state.subjectName" type="text" id="group"
-					class="mt-1 block w-full shadow-sm text-lg border-gray-300 rounded-md text-black"></div>
+				<TextInput label="Document Name" v-model="state.search"></TextInput>
+				<TextInput label="Assignment Name" v-model="state.assessmentName"></TextInput>
+				<TextInput label="Subject Name" v-model="state.subjectName"></TextInput>
 			</div>
 			<div class="mt-6 flex justify-center">
 				<button @click="listingApi" class="px-4 py-2 bg-blue-500 text-white rounded-md">Search</button>
 			</div>
-			<DocumentList :route="pathnames.Document" :header="tableHeaders" :data="state.listData.content"
-						  :editable="false" :downloadable="true">
-			</DocumentList>
 		</div>
+
+
+		<DocumentList :route="pathnames.Document" :header="tableHeaders" :data="state.listData.content"
+					  :editable="false" :downloadable="true">
+		</DocumentList>
 	</div>
 </template>
