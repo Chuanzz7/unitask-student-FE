@@ -35,7 +35,7 @@ const submitLogin = async () => {
 
 		form.isLoading = false;
 
-		router.push(pathnames.DefaultView);
+		router.push(pathnames.AnnouncementView);
 	} catch (error) {
 		form.isLoading = false;
 

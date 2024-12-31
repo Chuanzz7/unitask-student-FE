@@ -6,7 +6,7 @@ import breadcrumbsItem from "@/router/breadcrumbItems";
 
 const route = useRoute();
 
-const currentRouteName = computed(() => route.name || "dashboard");
+const currentRouteName = computed(() => route.name || "announcement");
 
 const items = computed(() => breadcrumbsItem[currentRouteName.value] || []);
 

@@ -8,7 +8,6 @@ import Login from "@/views/Auth/LoginView.vue";
 import SignUp from "@/views/Auth/SignUpView.vue";
 import NotFoundView from "@/views/NotFoundView.vue";
 
-import Dashboard from "@/views/Dashboard.vue";
 import DefaultLayout from "@/components/layout/DefaultLayout.vue";
 
 import AnnouncementView from "@/views/announcement/AnnouncementView.vue";
@@ -60,11 +59,6 @@ const router = createRouter({
 				requiresAuth: true,
 			},
 			children: [
-				{
-					path: pathnames.DashboardView,
-					name: "dashboard",
-					component: Dashboard,
-				},
 				{
 					path: pathnames.AnnouncementView,
 					name: "announcement",
